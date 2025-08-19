@@ -1,17 +1,16 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Cygnus DeFi Engine
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
-
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+This project showcases the Cygnus DeFi Engine built for the Cygnus Mainnet. It uses Hardhat 3 Beta with `mocha` and `ethers.js` for testing and Ethereum interactions.
 
 ## Project Overview
 
 This example project includes:
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+* Advanced CNS20 token implementation.
+* CNSFactory, CNSPair, CNSRouter, and CNSLibrary contracts.
+* Interfaces for ICNS20, ICNSCallee, ICNSFactory, ICNSPair, and IERC20.
+* TypeScript integration tests using `mocha` and `ethers.js`.
+* Ignition modules for deployments.
 
 ## Usage
 
@@ -23,35 +22,54 @@ To run all the tests in the project, execute the following command:
 npx hardhat test
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
+You can also selectively run Solidity or `mocha` tests:
 
 ```shell
 npx hardhat test solidity
 npx hardhat test mocha
 ```
 
-### Make a deployment to Sepolia
+### Deployment
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+This project includes example Ignition modules to deploy contracts to the Cygnus Mainnet.
 
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
-
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+To deploy a module:
 
 ```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+npx hardhat ignition deploy ignition/modules/<ModuleName>.ts --network cygnusMainnet
 ```
 
-After setting the variable, you can run the deployment with the Sepolia network:
+Ensure that your mainnet private key is set in the Hardhat config using the `MAINNET_PRIVATE_KEY` configuration variable.
 
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
+### Project Structure
+
 ```
+cygnus-defi/
+├─ contracts/
+│  ├─ CNS20.sol
+│  ├─ CNSFactory.sol
+│  ├─ CNSLibrary.sol
+│  ├─ CNSPair.sol
+│  ├─ CNSRouter.sol
+│  └─ interfaces/
+│     ├─ ICNS20.sol
+│     ├─ ICNSCallee.sol
+│     ├─ ICNSFactory.sol
+│     ├─ ICNSPair.sol
+│     └─ IERC20.sol
+├─ ignition/
+│  └─ modules/
+├─ test/
+├─ scripts/
+├─ hardhat.config.ts
+├─ package.json
+├─ package-lock.json
+├─ tsconfig.json
+└─ README.md
+```
+
+### Notes
+
+* Users are responsible for compiling the contracts.
+* All mainnet interactions should be performed using the `cygnusMainnet` network configuration in `hardhat.config.ts`.
+* CNS20 and related contracts are fully advanced, supporting factory, pair, router, and library interactions for DeFi applications.
